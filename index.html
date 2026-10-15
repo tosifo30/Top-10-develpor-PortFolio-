@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Ten personalized single-file developer portfolios for Tauseef Ahmad: five dark and five light.">
+    <title>Tosifo Dev — Developer Collection / Volume 02</title>
+    <style>
+    *  {
+      box-sizing: border-box;
+    }
+    body  {
+      margin:0;
+      background:#f2f1ed;
+      color:#17232e;
+      font:16px/1.6 Arial,sans-serif;
+    }
+    a  {
+      text-decoration:none;
+      color:inherit;
+    }
+    button,input  {
+      font:inherit;
+    }
+    :focus-visible  {
+      outline:3px solid #006cbd;
+      outline-offset:5px;
+    }
+    .container  {
+      width:min(1320px,92%);
+      margin:auto;
+    }
+    nav  {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:27px 0;
+      border-bottom:1px solid #17232e25;
+    }
+    .brand  {
+      font-size:23px;
+      font-weight:800;
+      letter-spacing:-1px;
+    }
+    .brand span  {
+      color:#006cbd;
+    }
+    .mono  {
+      font:11px 'Courier New',monospace;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    header  {
+      padding:70px 0 55px;
+    }
+    .eyebrow  {
+      color:#006cbd;
+    }
+    h1  {
+      font-size:clamp(3.8rem,8.8vw,8rem);
+      line-height:1;
+      letter-spacing:-.065em;
+      margin:25px 0;
+    }
+    h1 em  {
+      font-family:Georgia,serif;
+      font-weight:400;
+      color:#006cbd;
+    }
+    header p  {
+      max-width:610px;
+      color:#5d6a73;
+    }
+    .summary  {
+      display:flex;
+      gap:35px;
+      flex-wrap:wrap;
+      margin-top:25px;
+      font-size:12px;
+    }
+    .summary b  {
+      font-size:22px;
+      margin-right:6px;
+    }
+    .toolbar  {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:20px;
+      padding:25px 0;
+      border-top:1px solid #17232e25;
+    }
+    .filters  {
+      display:flex;
+      gap:8px;
+    }
+    .filter  {
+      padding:9px 17px;
+      border:1px solid #17232e30;
+      border-radius:100px;
+      background:transparent;
+      cursor:pointer;
+      color:#17232e;
+      font-size:12px;
+    }
+    .filter[aria-pressed='true']  {
+      background:#17232e;
+      color:#fff;
+    }
+    label  {
+      font-size:12px;
+    }
+    input  {
+      margin-left:10px;
+      padding:10px 13px;
+      border:1px solid #17232e30;
+      background:transparent;
+      border-radius:8px;
+      max-width:60vw;
+    }
+    #result-count  {
+      font-size:12px;
+      color:#5d6a73;
+      min-height:25px;
+      margin:0 0 18px;
+    }
+    .collection  {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:32px;
+    }
+    .design-card  {
+      min-width:0;
+      border:1px solid #17232e25;
+      background:#fff;
+      border-radius:16px;
+      overflow:hidden;
+      transition:transform .25s,box-shadow .25s;
+    }
+    .design-card:hover  {
+      transform:translateY(-5px);
+      box-shadow:0 15px 35px #17232e12;
+    }
+    .design-card[hidden]  {
+      display:none;
+    }
+    .preview-link  {
+      display:block;
+    }
+    .preview-window  {
+      position:relative;
+      aspect-ratio:1.65;
+      overflow:hidden;
+      background:var(--preview-background);
+      pointer-events:none;
+    }
+    iframe  {
+      width:1440px;
+      height:920px;
+      border:0;
+      position:absolute;
+      left:0;
+      top:0;
+      transform:scale(var(--scale,.43));
+      transform-origin:top left;
+      pointer-events:none;
+    }
+    .design-info  {
+      padding:24px 28px;
+      border-top:1px solid #17232e20;
+    }
+    .card-meta  {
+      display:flex;
+      justify-content:space-between;
+      color:#64727f;
+      font:10px 'Courier New',monospace;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .card-meta span:last-child  {
+      font-size:23px;
+      color:#006cbd;
+    }
+    h2  {
+      font-size:35px;
+      letter-spacing:-1.5px;
+      line-height:1.1;
+      margin:7px 0 10px;
+    }
+    .design-info p  {
+      margin:0;
+      color:#64727f;
+      font-size:12px;
+    }
+    .guide  {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10%;
+      padding:80px 0;
+    }
+    .guide h2  {
+      font-size:44px;
+    }
+    .guide p,.guide li  {
+      color:#64727f;
+      font-size:14px;
+    }
+    .guide li  {
+      padding-bottom:12px;
+    }
+    .empty  {
+      padding:50px;
+      text-align:center;
+    }
+    footer  {
+      border-top:1px solid #17232e25;
+      padding:25px 0;
+      color:#64727f;
+      font-size:11px;
+    }
+    @media(max-width:700px)  {
+      .collection,.guide  {
+        grid-template-columns:1fr;
+      }
+      nav .mono  {
+        display:none;
+      }
+      header  {
+        padding-top:45px;
+      }
+    }
+    @media(prefers-reduced-motion:reduce)  {
+      *  {
+        transition:none!important;
+      }
+    }
+  </style>
+  </head>
+  <body>
+    <nav class="container">
+      <a class="brand" href="#top">tosifo<span>.dev</span> / collection</a>
+      <span class="mono">Personal edition / Vol. 02</span>
+    </nav>
+    <header class="container" id="top">
+      <span class="mono eyebrow">TAUSEEF AHMAD — FULL-STACK MERN DEVELOPER</span>
+      <h1>One developer.<br>
+        <em>Ten directions.</em>
+      </h1>
+      <p>Your photo, your work, your story. Ten distinct portfolios with every essential section, thoughtful motion and code you can understand.</p>
+      <div class="summary">
+        <span>
+          <b>05</b> Dark portfolios</span>
+        <span>
+          <b>05</b> Light portfolios</span>
+        <span>
+          <b>01</b> HTML file per design</span>
+      </div>
+    </header>
+    <main class="container">
+      <div class="toolbar">
+        <div class="filters" role="group" aria-label="Filter portfolio theme">
+          <button class="filter" data-mode="all" aria-pressed="true">All 10</button>
+          <button class="filter" data-mode="dark" aria-pressed="false">Dark / 05</button>
+          <button class="filter" data-mode="light" aria-pressed="false">Light / 05</button>
+        </div>
+        <label for="search">Find a design<input id="search" type="search" placeholder="Blueprint, editorial…">
+        </label>
+      </div>
+      <p id="result-count" role="status" aria-live="polite">10 designs shown</p>
+      <div class="collection">
+        <article class="design-card" data-mode="dark" data-search="blueprint precision / electric blue">
+          <a class="preview-link" href="01-dark-blueprint.html" aria-label="Open Blueprint, dark developer portfolio">
+            <div class="preview-window" style="--preview-background:#0b1018">
+              <iframe src="01-dark-blueprint.html" title="Blueprint visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>01 / Dark edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Blueprint</h2>
+              <p>Precision / electric blue</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="dark" data-search="terminal code / lime / dashboard">
+          <a class="preview-link" href="02-dark-terminal.html" aria-label="Open Terminal, dark developer portfolio">
+            <div class="preview-window" style="--preview-background:#11140f">
+              <iframe src="02-dark-terminal.html" title="Terminal visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>02 / Dark edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Terminal</h2>
+              <p>Code / lime / dashboard</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="dark" data-search="nocturne cinematic / lilac / oversized type">
+          <a class="preview-link" href="03-dark-nocturne.html" aria-label="Open Nocturne, dark developer portfolio">
+            <div class="preview-window" style="--preview-background:#15121e">
+              <iframe src="03-dark-nocturne.html" title="Nocturne visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>03 / Dark edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Nocturne</h2>
+              <p>Cinematic / lilac / oversized type</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="dark" data-search="copper editorial / warm / minimal">
+          <a class="preview-link" href="04-dark-copper.html" aria-label="Open Copper, dark developer portfolio">
+            <div class="preview-window" style="--preview-background:#1a1613">
+              <iframe src="04-dark-copper.html" title="Copper visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>04 / Dark edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Copper</h2>
+              <p>Editorial / warm / minimal</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="dark" data-search="workspace side navigation / bento / cobalt">
+          <a class="preview-link" href="05-dark-workspace.html" aria-label="Open Workspace, dark developer portfolio">
+            <div class="preview-window" style="--preview-background:#0f1324">
+              <iframe src="05-dark-workspace.html" title="Workspace visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>05 / Dark edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Workspace</h2>
+              <p>Side navigation / bento / cobalt</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="light" data-search="azure tosifo blue / airy / professional">
+          <a class="preview-link" href="06-light-azure.html" aria-label="Open Azure, light developer portfolio">
+            <div class="preview-window" style="--preview-background:#ffffff">
+              <iframe src="06-light-azure.html" title="Azure visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>06 / Light edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Azure</h2>
+              <p>Tosifo blue / airy / professional</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="light" data-search="paper ivory / editorial / serif">
+          <a class="preview-link" href="07-light-paper.html" aria-label="Open Paper, light developer portfolio">
+            <div class="preview-window" style="--preview-background:#f6f2e9">
+              <iframe src="07-light-paper.html" title="Paper visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>07 / Light edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Paper</h2>
+              <p>Ivory / editorial / serif</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="light" data-search="swiss grid / cobalt / bold typography">
+          <a class="preview-link" href="08-light-swiss.html" aria-label="Open Swiss, light developer portfolio">
+            <div class="preview-window" style="--preview-background:#f5f6f7">
+              <iframe src="08-light-swiss.html" title="Swiss visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>08 / Light edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Swiss</h2>
+              <p>Grid / cobalt / bold typography</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="light" data-search="canvas soft lilac / rounded / centered">
+          <a class="preview-link" href="09-light-canvas.html" aria-label="Open Canvas, light developer portfolio">
+            <div class="preview-window" style="--preview-background:#faf8ff">
+              <iframe src="09-light-canvas.html" title="Canvas visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>09 / Light edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Canvas</h2>
+              <p>Soft lilac / rounded / centered</p>
+            </div>
+          </a>
+        </article>
+        <article class="design-card" data-mode="light" data-search="citrus yellow / graphic / playful">
+          <a class="preview-link" href="10-light-citrus.html" aria-label="Open Citrus, light developer portfolio">
+            <div class="preview-window" style="--preview-background:#fffdf2">
+              <iframe src="10-light-citrus.html" title="Citrus visual preview" loading="lazy" tabindex="-1" aria-hidden="true" sandbox>
+              </iframe>
+            </div>
+            <div class="design-info">
+              <div class="card-meta">
+                <span>10 / Light edition</span>
+                <span>↗</span>
+              </div>
+              <h2>Citrus</h2>
+              <p>Yellow / graphic / playful</p>
+            </div>
+          </a>
+        </article>
+      </div>
+      <p id="empty-message" class="empty" hidden>No matching designs. Clear the search or choose another theme.</p>
+      <section class="guide">
+        <div>
+          <span class="mono eyebrow">OPEN / EDIT / MAKE IT YOURS</span>
+          <h2>Simple files.<br>Real possibilities.</h2>
+          <p>Every design has hero, about, skills, projects, experience and contact sections. The photo is embedded; no installation is needed.</p>
+        </div>
+        <ol>
+          <li>Click any preview to open the complete portfolio.</li>
+          <li>Open its HTML file in VS Code. Numbered CSS and JavaScript sections explain where to edit.</li>
+          <li>Contact opens an email draft. Project links open the supplied websites; their availability depends on those sites.</li>
+          <li>Read BEGINNER-GUIDE.txt for easy customization and hosting steps.</li>
+        </ol>
+      </section>
+    </main>
+    <footer class="container">Made for Tauseef Ahmad · No framework · No CDN dependencies · Portrait included in every design</footer>
+    <script>
+    const cards = Array.from(document.querySelectorAll('.design-card'));
+    const buttons = document.querySelectorAll('.filter');
+    const search = document.querySelector('#search');
+    let selectedMode = 'all';
+
+    function filterDesigns() {
+      const query = search.value.trim().toLowerCase();
+      let count = 0;
+      cards.forEach((card) => {
+        const matchesMode = selectedMode === 'all' || card.dataset.mode === selectedMode;
+        const matchesQuery = card.dataset.search.includes(query);
+        card.hidden = !matchesMode || !matchesQuery;
+        if (!card.hidden) count += 1;
+      });
+      document.querySelector('#result-count').textContent = `${count} design${count === 1 ? '' : 's'} shown`;
+      document.querySelector('#empty-message').hidden = count > 0;
+      sizePreviews();
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        selectedMode = button.dataset.mode;
+        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        filterDesigns();
+      });
+    });
+    search.addEventListener('input', filterDesigns);
+
+    // Preview iframes are inert: visitors click the card to open the real file.
+    function sizePreviews() {
+      document.querySelectorAll('.preview-window').forEach((preview) => {
+        if (preview.clientWidth) preview.style.setProperty('--scale', preview.clientWidth / 1440);
+      });
+    }
+    window.addEventListener('resize', sizePreviews);
+    sizePreviews();
+  </script>
+  </body>
+</html>
